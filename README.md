@@ -8,6 +8,8 @@ My [herdr](https://herdr.dev) configuration: keybindings, theme, sidebar layout 
 | --- | --- |
 | `config.toml` | Main herdr config (theme, sidebar, keybindings, popups) |
 | `bin/herdr-switcher` | fzf popup to jump between agents, tabs and workspaces |
+| `ghostty/config.ghostty` | Ghostty config, including the `Cmd` -> herdr key forwarding |
+| `docs/ghostty-tricks.md` | How the keybinding tricks work |
 
 ## Plugins
 

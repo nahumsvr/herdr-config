@@ -5,3 +5,7 @@
 !config.toml
 !bin/
 !bin/**
+!ghostty/
+!ghostty/**
+!docs/
+!docs/**
