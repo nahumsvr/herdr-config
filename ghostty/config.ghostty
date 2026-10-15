@@ -1,0 +1,94 @@
+# ── Theme ─────────────────────────────────────────────────────────────
+theme = dark:"Zenwritten Dark",light:"Zenwritten Light"
+background-opacity = 0.85
+background-blur = 24
+
+# ── Font ──────────────────────────────────────────────────────────────
+font-family = "Cascadia Code"
+font-feature = ss01, ss02, ss03, ss19, ss20, calt, ss01
+adjust-cell-height = 70%
+font-size = 16
+
+# ── Cursor ────────────────────────────────────────────────────────────
+cursor-style = block
+cursor-style-blink = true
+cursor-invert-fg-bg = false
+cursor-opacity = .9
+
+# ── Window ────────────────────────────────────────────────────────────
+macos-titlebar-style = hidden
+macos-option-as-alt = false
+macos-auto-secure-input = false
+confirm-close-surface = true
+# window-decoration = auto
+window-decoration = false
+window-padding-x = 0
+window-padding-y = 0
+# window-padding-balance = true
+
+# ── Mouse ─────────────────────────────────────────────────────────────
+mouse-hide-while-typing = true
+
+# ── Shell integration ─────────────────────────────────────────────────
+shell-integration = detect
+
+# ── General ───────────────────────────────────────────────────────────
+auto-update = download
+auto-update-channel = stable
+
+# ── Keybindings ───────────────────────────────────────────────────────
+# Ghostty-native splits/tabs defaults in use (post-zellij):
+#   cmd+d split right · cmd+shift+d split down · cmd+t new tab
+#   cmd+w close pane · cmd+alt+w close tab · cmd+1..9 goto tab
+#   cmd+shift+enter zoom split · cmd+ctrl+arrows resize · cmd+ctrl+= equalize
+
+# Option key: with macos-option-as-alt=false, Option composes accents and no
+# longer emits Alt sequences. Unbind Option+arrows so they pass through to the
+# shell for word nav, and forward alt+backspace -> backward-kill-word (ESC+DEL).
+keybind = alt+left=unbind
+keybind = alt+right=unbind
+keybind = alt+backspace=text:\x1b\x7f
+
+# Rename the current tab.
+keybind = cmd+r=prompt_tab_title
+
+# Switch herdr tabs with cmd+alt+←/→ (zellij muscle memory). Emits the
+# Kitty-keyboard CSI-u sequence for ctrl+shift+h / ctrl+shift+l, which herdr
+# maps to previous_tab / next_tab. Same text:->herdr trick as cmd+a below.
+keybind = cmd+alt+left=text:\x1b[104;6u
+keybind = cmd+alt+right=text:\x1b[108;6u
+
+# cmd+p opens the herdr switcher popup (ctrl+shift+p as a Kitty CSI-u sequence).
+keybind = cmd+p=text:\x1b[112;6u
+
+# Maximize (zoom) the focused split — zellij muscle memory.
+keybind = cmd+shift+f=toggle_split_zoom
+
+# Move focus between splits — Ctrl+hjkl/arrows, with the `performable:` flag.
+# performable = Ghostty consumes the key ONLY if there's actually a Ghostty split
+# to move to. At an edge — or inside herdr, where Ghostty sees a single surface —
+# the key falls through to the running program, so herdr's vim-herdr-navigation
+# plugin (or nvim directly) handles the hop. One binding, works in all three.
+keybind = performable:ctrl+h=goto_split:left
+keybind = performable:ctrl+j=goto_split:down
+keybind = performable:ctrl+k=goto_split:up
+keybind = performable:ctrl+l=goto_split:right
+keybind = performable:ctrl+left=goto_split:left
+keybind = performable:ctrl+down=goto_split:down
+keybind = performable:ctrl+up=goto_split:up
+keybind = performable:ctrl+right=goto_split:right
+
+# Fixed 150% zoom (14 base × 1.5 = 21pt).
+keybind = cmd+ctrl+0=set_font_size:21
+
+# cmd+a emits the ctrl+b byte (\x02) = herdr's prefix (its default). Keeps the
+# prefix on cmd+a without clashing with cmd+← (which sends \x01 = ctrl+a).
+keybind = cmd+a=text:\x02
+
+# Clear screen. clear_screen doesn't work under herdr (the TUI repaints over it),
+# so send the `clear` command to the focused pane's shell. On cmd+k because
+# ctrl+shift+l is taken by herdr's switch-tab.
+keybind = cmd+k=text:clear\r
+
+# shift+enter -> ESC+Enter: newline without submitting in TUIs/REPLs.
+keybind = shift+enter=text:\x1b\r

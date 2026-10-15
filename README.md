@@ -8,6 +8,8 @@ My [herdr](https://herdr.dev) configuration: keybindings, theme, sidebar layout 
 | --- | --- |
 | `config.toml` | Main herdr config (theme, sidebar, keybindings, popups) |
 | `bin/herdr-switcher` | fzf popup to jump between agents, tabs and workspaces |
+| `ghostty/config.ghostty` | Ghostty config, including the `Cmd` -> herdr key forwarding |
+| `docs/ghostty-tricks.md` | How the keybinding tricks work |
 
 ## Plugins
 
@@ -57,9 +59,17 @@ keybind = cmd+p=text:\x1b[112;6u
 
 The prefix is `ctrl+b`.
 
+## Ghostty
+
+`ghostty/config.ghostty` is my Ghostty config. [docs/ghostty-tricks.md](docs/ghostty-tricks.md)
+explains how `Cmd` shortcuts are forwarded to herdr and every other keybinding trick used.
+
 ## Install
 
 ```sh
-git clone <this-repo> ~/.config/herdr
+git clone <this-repo> ~/herdr-config
+cp ~/herdr-config/config.toml ~/.config/herdr/config.toml
+mkdir -p ~/.config/herdr/bin && cp ~/herdr-config/bin/herdr-switcher ~/.config/herdr/bin/
+cp ~/herdr-config/ghostty/config.ghostty "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
 herdr server reload-config
 ```
