@@ -9,3 +9,7 @@
 !ghostty/**
 !docs/
 !docs/**
+!zsh/
+!zsh/**
+!pet/
+!pet/**

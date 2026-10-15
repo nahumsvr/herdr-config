@@ -1,7 +1,7 @@
 # Launchers: shortcuts that open other apps
 
 Two layers launch external tools: **herdr** (keybindings in `config.toml`) and **zsh** (aliases and
-a pet widget in `~/.zshrc`, not tracked in this repo).
+a pet widget in `~/.zshrc`, versioned in `zsh/` and `pet/`).
 
 ## herdr: popups and tabs
 
@@ -44,7 +44,8 @@ runs Vim or Neovim, the key goes to the editor's split; otherwise herdr moves pa
 
 ## zsh: aliases and functions
 
-Defined in the `pet + dev shortcuts` block of `~/.zshrc`.
+Defined in the `pet + dev shortcuts` block of `~/.zshrc`, versioned in [`zsh/zshrc`](../zsh/zshrc).
+The pet snippets and config are in [`pet/`](../pet).
 
 | Command | Runs |
 | --- | --- |
