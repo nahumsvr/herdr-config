@@ -10,6 +10,7 @@ My [herdr](https://herdr.dev) configuration: keybindings, theme, sidebar layout 
 | `bin/herdr-switcher` | fzf popup to jump between agents, tabs and workspaces |
 | `ghostty/config.ghostty` | Ghostty config, including the `Cmd` -> herdr key forwarding |
 | `docs/ghostty-tricks.md` | How the keybinding tricks work |
+| `docs/launchers.md` | Shortcuts and aliases that open lazygit, lazydocker, pet, Neovim and more |
 
 ## Plugins
 
@@ -58,6 +59,11 @@ keybind = cmd+p=text:\x1b[112;6u
 | `prefix+ctrl+v` | Neovim in a new tab |
 
 The prefix is `ctrl+b`.
+
+## Launchers
+
+Shortcuts that open other apps (lazygit, lazydocker, pet, a scratch shell, Neovim) and the zsh
+aliases around them are documented in [docs/launchers.md](docs/launchers.md).
 
 ## Ghostty
 
