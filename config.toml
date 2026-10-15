@@ -1,0 +1,178 @@
+# ── General ──────────────────────────────────────────────────────────
+onboarding = false
+
+# ── Appearance ───────────────────────────────────────────────────────
+# >>> herdr-theme-sync managed >>>
+# Rewritten by bin/herdr-theme-sync on macOS light/dark change. Edit palettes there.
+[theme]
+name = "catppuccin-latte"
+auto_switch = false
+[theme.custom]
+panel_bg = "none"
+surface0 = "#202020"
+surface1 = "#2a2a2a"
+surface_dim = "#141414"
+overlay0 = "#757575"
+overlay1 = "#8e8e8e"
+text = "#bbbbbb"
+subtext0 = "#a0a0a0"
+red = "#de6e7c"
+green = "#819b69"
+yellow = "#b77e64"
+blue = "#6099c0"
+mauve = "#b247a7"
+teal = "#66a5ad"
+peach = "#b77e64"
+accent = "#819b69"
+# <<< herdr-theme-sync managed <<<
+# Kept outside the managed block so theme sync does not overwrite it.
+# Background of the active Space and focused Agent rows in the sidebar.
+active_row_bg = "#363636"
+
+# ── Interface ─────────────────────────────────────────────────────────
+[ui]
+prompt_new_tab_name = false
+agent_panel_sort = "priority"
+show_agent_labels_on_pane_borders = true
+pane_gaps = false
+copy_on_select = true
+
+# Sidebar: which columns each row shows for agents and for spaces.
+[ui.sidebar.agents]
+row_gap = 0
+rows = [
+  ["state_icon", {token = "terminal_title_stripped", dim = false, fg = "#a0a0a0"}],
+  [{token = "workspace", dim = true, bold = false}],
+]
+
+[ui.sidebar.spaces]
+row_gap = 0
+rows = [
+  ["state_icon", "workspace", "branch", "git_status"],
+]
+
+# Toast notifications (off) and clipboard-copy toasts.
+[ui.toast]
+delivery = "off"
+
+[ui.toast.clipboard]
+enabled = false
+position = "top-right"
+
+[ui.sound]
+enabled = false
+
+# ── Keybindings ───────────────────────────────────────────────────────
+[keys]
+prefix = "ctrl+b"
+previous_workspace = "ctrl+shift+k"
+next_workspace = "ctrl+shift+j"
+previous_tab = "ctrl+shift+h"
+next_tab = "ctrl+shift+l"
+new_tab = "ctrl+t"
+close_tab = "ctrl+shift+w"
+close_pane = "ctrl+shift+x"
+# prefix+e enters copy mode; prefix+Shift+e edits scrollback in $EDITOR.
+copy_mode = "prefix+e"
+edit_scrollback = "prefix+shift+e"
+previous_agent = "ctrl+shift+,"
+next_agent = "ctrl+shift+."
+# prefix+1..9 jumps to a tab. Workspaces/agents go direct (no prefix) below.
+switch_tab = "prefix+1..9"
+# prefix+n creates a new worktree (default prefix+shift+g is unintuitive).
+new_worktree = "prefix+n"
+# prefix+d removes the current worktree (opens a confirmation).
+remove_worktree = "prefix+d"
+# prefix+shift+d closes the current workspace.
+close_workspace = "prefix+shift+d"
+
+# Direct jumps without the prefix: ctrl+1..9 -> workspace, ctrl+shift+1..9 -> agent.
+# Agents moved off alt: with macos-option-as-alt=false the Option key no longer
+# reaches herdr as Alt, so alt+1..9 was dead. ctrl+shift is unaffected.
+[keys.indexed]
+workspaces = "ctrl"
+agents = "ctrl+shift"
+
+# Command bindings — floating popups (each closes when its program exits).
+# prefix+ctrl+g opens lazygit.
+[[keys.command]]
+key = "prefix+ctrl+g"
+type = "popup"
+command = "lazygit"
+width = "90%"
+height = "85%"
+description = "lazygit popup"
+
+# prefix+shift+c opens a floating scratch shell.
+[[keys.command]]
+key = "prefix+shift+c"
+type = "popup"
+command = "zsh"
+width = "90%"
+height = "85%"
+description = "floating shell popup"
+
+# prefix+ctrl+r opens pet snippets in a popup. `pp` is a zsh alias
+# (pet exec --color), so run it through interactive zsh to resolve it.
+# ponytail: alias-only, breaks if you rename `pp`; hardcode `pet exec --color` if that matters.
+[[keys.command]]
+key = "prefix+ctrl+r"
+type = "popup"
+command = "pet exec --color"
+width = "90%"
+height = "85%"
+description = "pet snippets popup"
+
+# Command bindings — new tab.
+# prefix+ctrl+v opens nvim in a fresh focused tab.
+[[keys.command]]
+key = "prefix+ctrl+v"
+type = "shell"
+command = "herdr pane run \"$(herdr tab create --focus --label nvim | jq -r .result.root_pane.pane_id)\" nvim"
+description = "nvim in new tab"
+
+# Command bindings — seamless Ctrl+hjkl navigation between herdr panes and nvim splits.
+# Backed by the vim-herdr-navigation plugin (herdr plugin install
+# paulbkim-dev/vim-herdr-navigation). navigate.sh forwards the key to nvim when
+# the focused pane runs vim/nvim; otherwise it moves herdr pane focus.
+[[keys.command]]
+key = "ctrl+h"
+type = "plugin_action"
+command = "vim-herdr-navigation.left"
+description = "navigate left (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "plugin_action"
+command = "vim-herdr-navigation.down"
+description = "navigate down (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "plugin_action"
+command = "vim-herdr-navigation.up"
+description = "navigate up (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "plugin_action"
+command = "vim-herdr-navigation.right"
+description = "navigate right (vim/herdr)"
+
+# prefix+ctrl+d opens lazydocker in a popup.
+[[keys.command]]
+key = "prefix+ctrl+d"
+type = "popup"
+command = "lazydocker"
+width = "90%"
+height = "85%"
+description = "lazydocker popup"
+
+# ctrl+shift+p opens the fuzzy switcher (agents, tabs, workspaces).
+[[keys.command]]
+key = "ctrl+shift+p"
+type = "popup"
+command = "~/.config/herdr/bin/herdr-switcher"
+width = "70%"
+height = "60%"
+description = "switcher popup"

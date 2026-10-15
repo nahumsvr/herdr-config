@@ -1,0 +1,7 @@
+# Whitelist: ignore everything except tracked config.
+*
+!.gitignore
+!README.md
+!config.toml
+!bin/
+!bin/**

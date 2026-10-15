@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Fuzzy switcher for herdr workspaces, tabs and agents. Meant to run in a popup.
+set -euo pipefail
+
+ws=$(herdr workspace list)
+tabs=$(herdr tab list)
+agents=$(herdr agent list)
+
+entries=$(jq -rn --argjson ws "$ws" --argjson tabs "$tabs" --argjson agents "$agents" '
+  def wl($id): ($ws.result.workspaces[] | select(.workspace_id == $id) | .label) // $id;
+  def icon($s): {working: "●", blocked: "◐", done: "✔", idle: "○"}[$s] // "·";
+  ($agents.result.agents // $agents.result)[] |
+    "agent\t\(.pane_id)\t\(icon(.agent_status)) agent   \(wl(.workspace_id)) › \(.terminal_title_stripped // .agent) [\(.agent_status)]",
+  ($tabs.result.tabs[] |
+    "tab\t\(.tab_id)\t  tab     \(wl(.workspace_id)) › tab \(.label)"),
+  ($ws.result.workspaces[] |
+    "workspace\t\(.workspace_id)\t  space   \(.label)")
+')
+
+sel=$(printf '%s\n' "$entries" | fzf --delimiter=$'\t' --with-nth=3 --reverse \
+  --prompt='go> ' --height=100% --border --no-sort) || exit 0
+
+IFS=$'\t' read -r kind id _ <<<"$sel"
+case $kind in
+  agent) herdr agent focus "$id" >/dev/null ;;
+  tab) herdr tab focus "$id" >/dev/null ;;
+  workspace) herdr workspace focus "$id" >/dev/null ;;
+esac
