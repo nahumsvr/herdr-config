@@ -1,0 +1,384 @@
+[[snippets]]
+  description = "Launch lazygit"
+  command = "lazygit"
+  tag = ["git", "tui"]
+
+[[snippets]]
+  description = "Launch lazydocker"
+  command = "lazydocker"
+  tag = ["docker", "tui"]
+
+[[snippets]]
+  description = "Launch lvim"
+  command = "lvim <path=.>"
+  tag = ["editor"]
+
+[[snippets]]
+  description = "Docker: running containers"
+  command = "docker ps --format 'table {{.Names}}\\t{{.Image}}\\t{{.Status}}\\t{{.Ports}}'"
+  tag = ["docker"]
+
+[[snippets]]
+  description = "Docker: all containers (including stopped)"
+  command = "docker ps -a --format 'table {{.Names}}\\t{{.Image}}\\t{{.Status}}'"
+  tag = ["docker"]
+
+[[snippets]]
+  description = "Docker: follow logs of a container"
+  command = "docker logs -f --tail 100 <container>"
+  tag = ["docker"]
+
+[[snippets]]
+  description = "Docker: shell into a container"
+  command = "docker exec -it <container> <shell=sh>"
+  tag = ["docker"]
+
+[[snippets]]
+  description = "Docker: stop all running containers"
+  command = "docker stop $(docker ps -q)"
+  tag = ["docker"]
+
+[[snippets]]
+  description = "Docker: disk usage"
+  command = "docker system df"
+  tag = ["docker"]
+
+[[snippets]]
+  description = "Docker: prune unused data (asks confirmation)"
+  command = "docker system prune"
+  tag = ["docker"]
+
+[[snippets]]
+  description = "Docker Compose: up in background"
+  command = "docker compose up -d"
+  tag = ["docker", "compose"]
+
+[[snippets]]
+  description = "Docker Compose: down"
+  command = "docker compose down"
+  tag = ["docker", "compose"]
+
+[[snippets]]
+  description = "Docker Compose: follow logs"
+  command = "docker compose logs -f --tail 100 <service>"
+  tag = ["docker", "compose"]
+
+[[snippets]]
+  description = "cd: Desktop"
+  command = "cd ~/Desktop"
+  tag = ["nav"]
+
+[[snippets]]
+  description = "cd: Documents"
+  command = "cd ~/Documents"
+  tag = ["nav"]
+
+[[snippets]]
+  description = "cd: Downloads"
+  command = "cd ~/Downloads"
+  tag = ["nav"]
+
+[[snippets]]
+  description = "cd: CLionProjects"
+  command = "cd ~/CLionProjects"
+  tag = ["nav"]
+
+[[snippets]]
+  description = "cd: DataGripProjects"
+  command = "cd ~/DataGripProjects"
+  tag = ["nav"]
+
+[[snippets]]
+  description = "cd: ~/.config"
+  command = "cd ~/.config"
+  tag = ["nav"]
+
+[[snippets]]
+  description = "cd: herdr config"
+  command = "cd ~/.config/herdr"
+  tag = ["nav", "herdr"]
+
+[[snippets]]
+  description = "Edit herdr config in lvim"
+  command = "lvim ~/.config/herdr/config.toml"
+  tag = ["herdr", "editor"]
+
+[[snippets]]
+  description = "Edit zshrc in lvim"
+  command = "lvim ~/.zshrc"
+  tag = ["shell", "editor"]
+
+[[snippets]]
+  description = "Edit pet snippets"
+  command = "pet edit"
+  tag = ["pet"]
+
+[[snippets]]
+  description = "Git: short status"
+  command = "git status -sb"
+  tag = ["git"]
+
+[[snippets]]
+  description = "Git: pretty graph log"
+  command = "git log --oneline --graph --decorate --all -20"
+  tag = ["git"]
+
+[[snippets]]
+  description = "Git: switch or create branch"
+  command = "git switch -c <branch>"
+  tag = ["git"]
+
+[[snippets]]
+  description = "Git: undo last commit, keep changes"
+  command = "git reset --soft HEAD~1"
+  tag = ["git"]
+
+[[snippets]]
+  description = "Git: list local branches by last activity"
+  command = "git branch --sort=-committerdate --format='%(committerdate:relative)\\t%(refname:short)'"
+  tag = ["git"]
+
+[[snippets]]
+  description = "GitHub: list my open PRs"
+  command = "gh pr list --author @me"
+  tag = ["git", "github"]
+
+[[snippets]]
+  description = "GitHub: view repo in browser"
+  command = "gh repo view --web"
+  tag = ["git", "github"]
+
+[[snippets]]
+  description = "Port: who is listening on a port"
+  command = "lsof -nP -iTCP:<port=3000> -sTCP:LISTEN"
+  tag = ["network"]
+
+[[snippets]]
+  description = "Port: kill process on a port"
+  command = "kill -9 $(lsof -ti tcp:<port=3000>)"
+  tag = ["network"]
+
+[[snippets]]
+  description = "All listening TCP ports"
+  command = "lsof -nP -iTCP -sTCP:LISTEN"
+  tag = ["network"]
+
+[[snippets]]
+  description = "Local IP address"
+  command = "ipconfig getifaddr en0"
+  tag = ["network"]
+
+[[snippets]]
+  description = "Public IP address"
+  command = "curl -s ifconfig.me"
+  tag = ["network"]
+
+[[snippets]]
+  description = "Search text in files (ripgrep)"
+  command = "rg -n '<pattern>' <path=.>"
+  tag = ["search"]
+
+[[snippets]]
+  description = "Find files by name"
+  command = "fd '<name>' <path=.>"
+  tag = ["search"]
+
+[[snippets]]
+  description = "Biggest folders in current directory"
+  command = "du -sh * | sort -rh | head -15"
+  tag = ["disk"]
+
+[[snippets]]
+  description = "Tree view of current directory"
+  command = "eza --tree --level=<depth=2> --icons"
+  tag = ["files"]
+
+[[snippets]]
+  description = "Update Homebrew packages"
+  command = "brew update && brew upgrade && brew cleanup"
+  tag = ["brew"]
+
+[[snippets]]
+  description = "Reload zsh config"
+  command = "exec zsh"
+  tag = ["shell"]
+
+[[snippets]]
+  description = "Docker Compose: status of services"
+  command = "docker compose ps"
+  tag = ["docker", "compose"]
+
+[[snippets]]
+  description = "Docker Compose: rebuild and start"
+  command = "docker compose up -d --build"
+  tag = ["docker", "compose"]
+
+[[snippets]]
+  description = "Docker Compose: restart a service"
+  command = "docker compose restart <service>"
+  tag = ["docker", "compose"]
+
+[[snippets]]
+  description = "Docker Compose: stop services (keep containers)"
+  command = "docker compose stop"
+  tag = ["docker", "compose"]
+
+[[snippets]]
+  description = "Docker Compose: down and remove volumes"
+  command = "docker compose down -v"
+  tag = ["docker", "compose"]
+
+[[snippets]]
+  description = "Docker Compose: pull latest images"
+  command = "docker compose pull"
+  tag = ["docker", "compose"]
+
+[[snippets]]
+  description = "Docker Compose: run shell in a service"
+  command = "docker compose exec <service> <shell=sh>"
+  tag = ["docker", "compose"]
+
+[[snippets]]
+  description = "Docker Compose: one-off command in a new container"
+  command = "docker compose run --rm <service> <command>"
+  tag = ["docker", "compose"]
+
+[[snippets]]
+  description = "Docker Compose: build without cache"
+  command = "docker compose build --no-cache <service>"
+  tag = ["docker", "compose"]
+
+[[snippets]]
+  description = "Docker Compose: show resolved config"
+  command = "docker compose config"
+  tag = ["docker", "compose"]
+
+[[snippets]]
+  description = "Docker Compose: up with a specific file"
+  command = "docker compose -f <file=docker-compose.yml> up -d"
+  tag = ["docker", "compose"]
+
+[[snippets]]
+  description = "Docker: live resource usage of containers"
+  command = "docker stats"
+  tag = ["docker"]
+
+[[snippets]]
+  description = "Docker: list volumes"
+  command = "docker volume ls"
+  tag = ["docker"]
+
+[[snippets]]
+  description = "Docker: list images"
+  command = "docker images"
+  tag = ["docker"]
+
+[[snippets]]
+  description = "Git: fetch all remotes and prune"
+  command = "git fetch --all --prune"
+  tag = ["git", "remote"]
+
+[[snippets]]
+  description = "Git: pull with rebase"
+  command = "git pull --rebase"
+  tag = ["git", "remote"]
+
+[[snippets]]
+  description = "Git: pull fast-forward only (safe)"
+  command = "git pull --ff-only"
+  tag = ["git", "remote"]
+
+[[snippets]]
+  description = "Git: pull a specific branch from origin"
+  command = "git pull origin <branch>"
+  tag = ["git", "remote"]
+
+[[snippets]]
+  description = "Git: push and set upstream"
+  command = "git push -u origin HEAD"
+  tag = ["git", "remote"]
+
+[[snippets]]
+  description = "Git: push safely after rewriting history"
+  command = "git push --force-with-lease"
+  tag = ["git", "remote"]
+
+[[snippets]]
+  description = "Git: list remotes"
+  command = "git remote -v"
+  tag = ["git", "remote"]
+
+[[snippets]]
+  description = "Git: commits I'm behind/ahead of upstream"
+  command = "git rev-list --left-right --count @{u}...HEAD"
+  tag = ["git", "remote"]
+
+[[snippets]]
+  description = "Git: see incoming changes before pulling"
+  command = "git log HEAD..@{u} --oneline"
+  tag = ["git", "remote"]
+
+[[snippets]]
+  description = "Git: checkout a remote branch locally"
+  command = "git switch --track origin/<branch>"
+  tag = ["git", "remote"]
+
+[[snippets]]
+  description = "Git: delete local branches already merged"
+  command = "git branch --merged | rg -v '\\*|main|master|develop' | xargs -n 1 git branch -d"
+  tag = ["git"]
+
+[[snippets]]
+  description = "Git: stash changes with a message"
+  command = "git stash push -m '<message>'"
+  tag = ["git", "stash"]
+
+[[snippets]]
+  description = "Git: list stashes"
+  command = "git stash list"
+  tag = ["git", "stash"]
+
+[[snippets]]
+  description = "Git: apply and drop latest stash"
+  command = "git stash pop"
+  tag = ["git", "stash"]
+
+[[snippets]]
+  description = "Git: amend last commit message"
+  command = "git commit --amend"
+  tag = ["git"]
+
+[[snippets]]
+  description = "Git: discard local changes in a file"
+  command = "git restore <file>"
+  tag = ["git"]
+
+[[snippets]]
+  description = "Git: unstage a file"
+  command = "git restore --staged <file>"
+  tag = ["git"]
+
+[[snippets]]
+  description = "Git: diff staged changes"
+  command = "git diff --staged"
+  tag = ["git"]
+
+[[snippets]]
+  description = "Git: who changed each line of a file"
+  command = "git blame <file>"
+  tag = ["git"]
+
+[[snippets]]
+  description = "Git: cherry-pick a commit"
+  command = "git cherry-pick <commit>"
+  tag = ["git"]
+
+[[snippets]]
+  description = "Git: rebase current branch onto main"
+  command = "git rebase origin/<base=main>"
+  tag = ["git"]
+
+[[snippets]]
+  description = "Git: update submodules"
+  command = "git submodule update --init --recursive"
+  tag = ["git"]

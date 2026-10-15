@@ -10,6 +10,9 @@ My [herdr](https://herdr.dev) configuration: keybindings, theme, sidebar layout 
 | `bin/herdr-switcher` | fzf popup to jump between agents, tabs and workspaces |
 | `ghostty/config.ghostty` | Ghostty config, including the `Cmd` -> herdr key forwarding |
 | `docs/ghostty-tricks.md` | How the keybinding tricks work |
+| `zsh/zshrc` | My `~/.zshrc`, including the pet widget, aliases and `j` jumper |
+| `pet/snippet.toml` | pet snippets (docker, compose, git, navigation, network) |
+| `pet/config.toml` | pet config (fzf selector, `lvim` editor) |
 | `docs/launchers.md` | Shortcuts and aliases that open lazygit, lazydocker, pet, Neovim and more |
 
 ## Plugins
@@ -77,5 +80,12 @@ git clone <this-repo> ~/herdr-config
 cp ~/herdr-config/config.toml ~/.config/herdr/config.toml
 mkdir -p ~/.config/herdr/bin && cp ~/herdr-config/bin/herdr-switcher ~/.config/herdr/bin/
 cp ~/herdr-config/ghostty/config.ghostty "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
+mkdir -p ~/.config/pet && cp ~/herdr-config/pet/*.toml ~/.config/pet/
 herdr server reload-config
 ```
+
+`zsh/zshrc` is a full copy of my `~/.zshrc` (Oh My Zsh, fnm, PATH entries for my machine). On a new
+machine, copy only the `pet + dev shortcuts` block into your own `~/.zshrc` instead of replacing it.
+
+> `pet/config.toml` has empty `access_token` fields. If you ever add a Gist or GitLab sync token to
+> pet, remove it before committing.
