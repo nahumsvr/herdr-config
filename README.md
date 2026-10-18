@@ -7,7 +7,7 @@ My [herdr](https://herdr.dev) configuration: keybindings, theme, sidebar layout 
 | Path | Description |
 | --- | --- |
 | `config.toml` | Main herdr config (theme, sidebar, keybindings, popups) |
-| `bin/herdr-switcher` | fzf popup to jump between agents, tabs and workspaces |
+| `bin/herdr-jump` | fzf popup to jump between agents, tabs and workspaces |
 | `ghostty/config.ghostty` | Ghostty config, including the `Cmd` -> herdr key forwarding |
 | `docs/ghostty-tricks.md` | How the keybinding tricks work |
 | `zsh/zshrc` | My `~/.zshrc`, including the pet widget, aliases and `j` jumper |
@@ -32,9 +32,9 @@ herdr plugin install paulbkim-dev/vim-herdr-navigation --yes
 `dot.terminal-notifier` needs `jq` and a one-time notification permission for **herdr** in
 System Settings → Notifications.
 
-## Switcher
+## Jump
 
-`bin/herdr-switcher` lists agents, tabs and workspaces through the herdr CLI and focuses the
+`bin/herdr-jump` lists agents, tabs and workspaces through the herdr CLI and focuses the
 selected one. It requires `fzf` and `jq`.
 
 Bound in `config.toml` as a popup on `ctrl+shift+p`. To open it with `cmd+p` from Ghostty,
@@ -54,7 +54,7 @@ keybind = cmd+p=text:\x1b[112;6u
 | `ctrl+shift+j` / `ctrl+shift+k` | Next / previous workspace |
 | `ctrl+1..9` | Jump to workspace |
 | `ctrl+shift+1..9` | Jump to agent |
-| `ctrl+shift+p` | Switcher popup |
+| `ctrl+shift+p` | Jump popup |
 | `prefix+ctrl+g` | lazygit popup |
 | `prefix+ctrl+d` | lazydocker popup |
 | `prefix+ctrl+r` | pet snippets popup |
@@ -78,7 +78,7 @@ explains how `Cmd` shortcuts are forwarded to herdr and every other keybinding t
 ```sh
 git clone <this-repo> ~/herdr-config
 cp ~/herdr-config/config.toml ~/.config/herdr/config.toml
-mkdir -p ~/.config/herdr/bin && cp ~/herdr-config/bin/herdr-switcher ~/.config/herdr/bin/
+mkdir -p ~/.config/herdr/bin && cp ~/herdr-config/bin/herdr-jump ~/.config/herdr/bin/
 cp ~/herdr-config/ghostty/config.ghostty "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
 mkdir -p ~/.config/pet && cp ~/herdr-config/pet/*.toml ~/.config/pet/
 herdr server reload-config

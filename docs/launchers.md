@@ -15,7 +15,7 @@ Press the prefix, release it, then press the second key.
 | `prefix`, `ctrl+r` | `pet exec --color` | popup, 90% x 85% | Snippet picker. Runs the chosen command inside the popup. |
 | `prefix`, `shift+c` | `zsh` | popup, 90% x 85% | Floating scratch shell. `exit` closes it. |
 | `prefix`, `ctrl+v` | `nvim` | new tab | Creates a tab labelled `nvim` and runs Neovim in it. |
-| `ctrl+shift+p` (`cmd+p` in Ghostty) | `herdr-switcher` | popup, 70% x 60% | Jump to an agent, tab or workspace. |
+| `ctrl+shift+p` (`cmd+p` in Ghostty) | `herdr-jump` | popup, 70% x 60% | Jump to an agent, tab or workspace. |
 
 A **popup** is a floating pane that closes when its program exits, so the apps above do not leave
 terminals behind. Sizes are set per binding with `width` and `height`.
