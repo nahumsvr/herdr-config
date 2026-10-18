@@ -16,6 +16,11 @@ so the script publishes a custom `$line` token per pane through
 The state text (`working`, `input`, `done`, `idle`) is set with `--state-label`
 and shown before the workspace name.
 
+> **Needs the daemon.** The agent rows show only the `$line` token, so while
+> `herdr-status-icons` is not running the rows are blank (title included). Start it with
+> the LaunchAgent below, or switch the first row in `config.toml` back to
+> `["state_icon", {token = "terminal_title_stripped", ...}]`.
+
 ## How it fits together
 
 - `config.toml`: `[ui.sidebar.agents]` first row is `{token = "$line"}`. Glyph and

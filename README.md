@@ -80,11 +80,14 @@ explains how `Cmd` shortcuts are forwarded to herdr and every other keybinding t
 ```sh
 git clone <this-repo> ~/herdr-config
 cp ~/herdr-config/config.toml ~/.config/herdr/config.toml
-mkdir -p ~/.config/herdr/bin && cp ~/herdr-config/bin/herdr-jump ~/.config/herdr/bin/
+mkdir -p ~/.config/herdr/bin && cp ~/herdr-config/bin/herdr-jump ~/herdr-config/bin/herdr-status-icons ~/.config/herdr/bin/
 cp ~/herdr-config/ghostty/config.ghostty "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
 mkdir -p ~/.config/pet && cp ~/herdr-config/pet/*.toml ~/.config/pet/
 herdr server reload-config
 ```
+
+The sidebar agent rows depend on `bin/herdr-status-icons` running in the background; without it
+they render blank. See [docs/status-icons.md](docs/status-icons.md) to start it at login.
 
 `zsh/zshrc` is a full copy of my `~/.zshrc` (Oh My Zsh, fnm, PATH entries for my machine). On a new
 machine, copy only the `pet + dev shortcuts` block into your own `~/.zshrc` instead of replacing it.
