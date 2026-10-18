@@ -7,6 +7,8 @@ background-blur = 24
 font-family = "Cascadia Code"
 font-feature = ss01, ss02, ss03, ss19, ss20, calt, ss01
 adjust-cell-height = 70%
+# Braille spinner glyphs (herdr status icons): use a real font so they sit on the text baseline.
+font-codepoint-map = U+2800-U+28FF=Apple Braille
 font-size = 16
 
 # ── Cursor ────────────────────────────────────────────────────────────
