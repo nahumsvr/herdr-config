@@ -32,6 +32,8 @@ active_row_bg = "#363636"
 # ── Interface ─────────────────────────────────────────────────────────
 [ui]
 prompt_new_tab_name = false
+# Distinct glyphs per state (blocked, working, done, idle, unknown) instead of dots.
+status_indicators = "symbols"
 agent_panel_sort = "priority"
 show_agent_labels_on_pane_borders = true
 pane_gaps = false
@@ -41,8 +43,8 @@ copy_on_select = true
 [ui.sidebar.agents]
 row_gap = 0
 rows = [
-  ["state_icon", {token = "terminal_title_stripped", dim = false, fg = "#a0a0a0"}],
-  [{token = "workspace", dim = true, bold = false}],
+  [{token = "$line", dim = false, fg = "#a0a0a0"}],
+  [{token = "state_text", bold = true}, {token = "workspace", dim = true, bold = false}],
 ]
 
 [ui.sidebar.spaces]

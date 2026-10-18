@@ -8,6 +8,8 @@ My [herdr](https://herdr.dev) configuration: keybindings, theme, sidebar layout 
 | --- | --- |
 | `config.toml` | Main herdr config (theme, sidebar, keybindings, popups) |
 | `bin/herdr-jump` | fzf popup to jump between agents, tabs and workspaces |
+| `bin/herdr-status-icons` | Background script that animates the agent status glyphs in the sidebar |
+| `docs/status-icons.md` | How the status icons work and how to run them at login |
 | `ghostty/config.ghostty` | Ghostty config, including the `Cmd` -> herdr key forwarding |
 | `docs/ghostty-tricks.md` | How the keybinding tricks work |
 | `zsh/zshrc` | My `~/.zshrc`, including the pet widget, aliases and `j` jumper |
