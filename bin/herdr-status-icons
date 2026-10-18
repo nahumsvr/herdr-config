@@ -25,7 +25,7 @@ glyph_for() {
   esac
 }
 
-typeset -A last_glyph last_sent pane_state pane_title
+typeset -A last_glyph last_sent pane_state pane_title inflight
 typeset -i frame list_frame=-999
 LIST_FRAMES=3   # agent list (state/title) is refreshed every ~0.25s, not every frame
 
@@ -62,11 +62,16 @@ while :; do
     line="$(glyph_for "${pane_state[$pane]}" "$frame") ${pane_title[$pane]}"
     age=$(( frame - ${last_sent[$pane]:--999} ))
     if [[ "${last_glyph[$pane]:-}" != "$line" ]] || (( age >= REFRESH_FRAMES )); then
+      # At most one report in flight per pane: if herdr is slow, skip this frame and
+      # publish the newer one next time instead of piling up processes.
+      [[ -n "${inflight[$pane]:-}" ]] && kill -0 "${inflight[$pane]}" 2>/dev/null && continue
       # Background so several working panes update in the same instant.
       herdr pane report-metadata "$pane" --source "$SOURCE" --ttl-ms "$TTL_MS" \
         --token "line=$line" \
         --state-label "working=working" --state-label "blocked=input" \
-        --state-label "done=done" --state-label "idle=idle" >/dev/null 2>&1 &!
+        --state-label "done=done" --state-label "idle=idle" >/dev/null 2>&1 &
+      inflight[$pane]="$!"   # quoted: zsh leaves a bare $! unexpanded here
+      disown
       last_glyph[$pane]=$line
       last_sent[$pane]=$frame
     fi
