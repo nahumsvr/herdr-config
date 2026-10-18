@@ -1,0 +1,83 @@
+#!/usr/bin/env zsh
+# Animated agent status glyphs for the herdr sidebar.
+# Publishes an $icon token (and state labels) per agent pane through pane metadata.
+# Usage: herdr-status-icons [--once]   (run it in the background, see docs/status-icons.md)
+setopt no_unset
+zmodload zsh/datetime
+
+SOURCE="status-icons"
+
+FRAME_MS=80   # cli-spinners "dots" interval
+# Unchanged panes are re-published every REFRESH_FRAMES frames (20 x 80ms = 1.6s),
+# which must stay well under TTL_MS or the icon blinks out.
+REFRESH_FRAMES=20
+TTL_MS=15000
+
+SPINNER=(⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏)
+
+glyph_for() {
+  case "$1" in
+    working) printf '%s' "${SPINNER[$(( $2 % ${#SPINNER} + 1 ))]}" ;;
+    blocked) printf '?' ;;
+    done)    printf '✓' ;;
+    idle)    printf '⏾' ;;
+    *)       printf '◌' ;;
+  esac
+}
+
+typeset -A last_glyph last_sent pane_state pane_title inflight
+typeset -i frame list_frame=-999
+LIST_FRAMES=3   # agent list (state/title) is refreshed every ~0.25s, not every frame
+
+refresh_agents() {
+  pane_state=(); pane_title=()
+  local pane state title
+  while IFS=$'\t' read -r pane state title; do
+    [[ -n "$pane" ]] || continue
+    pane_state[$pane]=$state
+    pane_title[$pane]=$title
+  done < <(herdr api snapshot 2>/dev/null | jq -r '.result.snapshot.agents[]? | "\(.pane_id)\t\(.agent_status)\t\(.terminal_title_stripped // "")"')
+}
+
+# Clear our token on exit so a stopped daemon never leaves a stale glyph behind
+# (the TTL would expire it anyway, this just does it right away).
+cleanup() {
+  local pane
+  for pane in ${(k)pane_state}; do
+    herdr pane report-metadata "$pane" --source "$SOURCE" --clear-token line >/dev/null 2>&1
+  done
+  exit 0
+}
+trap cleanup INT TERM HUP
+
+while :; do
+  # Frame comes from the clock, so speed does not depend on how many agents are busy.
+  frame=$(( EPOCHREALTIME * 1000 / FRAME_MS ))   # integer variable: truncates
+  if (( frame - list_frame >= LIST_FRAMES )); then
+    refresh_agents
+    list_frame=$frame
+  fi
+  for pane in ${(k)pane_state}; do
+    # One token holds glyph and title: herdr draws a separator between row tokens.
+    line="$(glyph_for "${pane_state[$pane]}" "$frame") ${pane_title[$pane]}"
+    age=$(( frame - ${last_sent[$pane]:--999} ))
+    if [[ "${last_glyph[$pane]:-}" != "$line" ]] || (( age >= REFRESH_FRAMES )); then
+      # At most one report in flight per pane: if herdr is slow, skip this frame and
+      # publish the newer one next time instead of piling up processes.
+      [[ -n "${inflight[$pane]:-}" ]] && kill -0 "${inflight[$pane]}" 2>/dev/null && continue
+      # Background so several working panes update in the same instant.
+      herdr pane report-metadata "$pane" --source "$SOURCE" --ttl-ms "$TTL_MS" \
+        --token "line=$line" \
+        --state-label "working=working" --state-label "blocked=input" \
+        --state-label "done=done" --state-label "idle=idle" >/dev/null 2>&1 &
+      inflight[$pane]="$!"   # quoted: zsh leaves a bare $! unexpanded here
+      disown
+      last_glyph[$pane]=$line
+      last_sent[$pane]=$frame
+    fi
+  done
+  [[ "${1:-}" == "--once" ]] && { wait; exit 0; }
+  # Sleep until the next frame boundary instead of a fixed tick.
+  delay=$(( (frame + 1) * FRAME_MS / 1000.0 - EPOCHREALTIME ))
+  (( delay > 0 )) && sleep "$delay"
+done
